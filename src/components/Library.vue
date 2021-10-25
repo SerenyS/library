@@ -6,7 +6,7 @@
   <h1>CART </h1>
   <bag  v-for="(item, i) in library"
                   :item="item"
-                   :key="!item.isAvailable"
+                   :key="item.isAvailable"
                    :forlater="i"></bag>
   <button class="btn btn-secondary" >Check out</button>
 

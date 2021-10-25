@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-body">  
   <h2>{{item.title}}</h2> 
-  <button class="btn btn-danger" v-if="item.isAvailable()" @click="item.checkOut() ">Remove</button>  
+  <button class="btn btn-danger" v-if="!item.isAvailable()" @click="item.return() ">Remove</button>  
   </div>  
 </div>
    
