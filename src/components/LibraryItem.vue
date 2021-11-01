@@ -4,9 +4,9 @@
       <component :is="typeOfItem" :item="item"></component>
     </div>
     <div class="card-footer">
-     <button class="btn btn-secondary" v-if="item.isAvailable()" @click="item.checkOut() ">Add to Bag</button>
-      <button class="btn btn-secondary" v-else :disabled ="!item.isAvailable()">Added to Bag</button>
-      <!-- <button class="btn btn-danger" @click="item.remove()">Remove</button> -->
+     <button class="btn btn-secondary" v-if="item.isAvailable()" @click="item.inBag() ">Add to Bag</button>
+      <button class="btn btn-secondary" v-else-if="item.isInBag()" disabled>Added to Bag</button>
+    
     </div>
   </div>
 </template>
@@ -25,7 +25,6 @@ export default {
   },
   props: {
   item: Object,
-  // removeItem: Function,
   },
 
   computed: {

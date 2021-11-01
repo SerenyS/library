@@ -1,6 +1,6 @@
 function LibraryItem(media, removeMethod){
     // list of possible values (enum)
-    const STATUSES = {INLIBRARY: 'in', OUTLIBRARY: 'out'};
+    const STATUSES = {INLIBRARY: 'in', OUTLIBRARY: 'out', INBAG: 'inBag'};
 
     // unique id for each library item
     media.id = Math.floor(Math.random() * 10e16);
@@ -9,9 +9,14 @@ function LibraryItem(media, removeMethod){
     media.status = STATUSES.INLIBRARY;
 
 
-    media.return= function(){
-        this.status = STATUSES.INLIBRARY;
-    }
+   media.inBag = function(){
+       this.status = STATUSES.INBAG;
+   }
+
+
+   media.return= function(){
+    this.status = STATUSES.INLIBRARY;
+}
 
     media.checkOut = function(){
         this.status = STATUSES.OUTLIBRARY;
@@ -21,15 +26,11 @@ function LibraryItem(media, removeMethod){
         return this.status === STATUSES.INLIBRARY;
     }
 
-    // option 1
-    // media.remove = function(){
-    //     removeMethod(this); // this is the library item (book / movie)
-    // }
-
-    // option 2
-    //media.remove = removeMethod || (() => {})
+    media.isInBag = function(){
+        return this.status === STATUSES.INBAG;
+    }
+ 
     media.remove = removeMethod || function(){};
-
 
     return media;
 }

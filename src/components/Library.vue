@@ -4,16 +4,16 @@
   
 <div>
   <h1>CART </h1>
-  <bag  v-for="(item, i) in library"
+  <bag  v-for="(item) in library.addedToBag()"
                   :item="item"
-                   :key="item.isAvailable"
-                   :forlater="i"></bag>
-  <button class="btn btn-secondary" >Check out</button>
+                   :key="item.inBag"
+                   ></bag>
+  <button class="btn btn-secondary" @click="bag.clear() " >Check out</button>
 
 
 </div>
-
-     <library-item 
+<b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" v-model="searchTerm"></b-form-input>
+<library-item 
                   v-for="(item, i) in library"
                   :item="item"
                    :key="item.id"
@@ -27,7 +27,6 @@
 <script>
 import LibraryCollection from "@/models/LibraryCollection";
 
-import BagModel from "@/models/BagModel";
 
 import {Book, Movie,Album} from "@/models/LibraryItems";
 
@@ -41,18 +40,57 @@ export default {
     LibraryItem,
     Bag
   },
-  data() {
-    return {
-      bag: new BagModel(),
-      library: new LibraryCollection()
-          .addItem(new Album('The Black Parade','My Chemical Romance',14))
-          .addItem(new Book('Star Wars', 'Space Opera', 345))
-          .addItem(new Movie('Star Wars 1', 'Space Opera', 345))
-          .addItem(new Movie('Star Wars 2', 'Space Opera', 345))
-          .addItem(new Movie('Star Wars 3', 'Space Opera', 345))
+  methods:{
+    search(){
+      if(this.searchTerm){
+        this.searchResult = new LibraryCollection();
+
+        let url = 'https://itunes.apple.com/search?parameterkeyvalue';
+        let config={
+          term : this.searchTerm,
+          country: US,
+          // callback :
+          media: movie,
+          limit:15,
+
+
+        }
+          axios.get(url, config)
+                    .then((response) => {
+                       
+                        this.searchResults = new BookCollection(response.data.items);
+                           foreach result
+                            if item.kind === 'movie'
+                                this.library.addItem(new Movie(...))
+                                this.library.addItem(Object.create(new Movie, response.data.items[i])    
+                    })
+                    .catch((error) => {
+                       
+                    })
+                    .finally(() => {
+                  
+                    })
+
+            }
+        
+      }
     }
   },
-  // FOR EACH ITEM WITH THE STATUS "OUTLIBRARY" ADD TO NEW LIBRARY COLLECTION BAG 
+  data() {
+    return {
+      searchTerm:'',
+      searchResult: new LibraryCollection();
+
+      library: new LibraryCollection();
+
+          // .addItem(new Album('The Black Parade','My Chemical Romance',14))
+          // .addItem(new Book('Star Wars', 'Space Opera', 345))
+          // .addItem(new Movie('Star Wars 1', 'Space Opera', 345))
+          // .addItem(new Movie('Star Wars 2', 'Space Opera', 345))
+          // .addItem(new Movie('Star Wars 3', 'Space Opera', 345))
+    }
+    
+  
 }
 </script>
 

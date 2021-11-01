@@ -9,19 +9,14 @@
 </template>
 
 <script>
-
 // FOR ALL CHECKED OUT ITEMS ADD TO BAG
-
 export default {
    name: "Bag",
-
   components: {
-
   },
   props: {
   item: Object,
   removeItem: Function,
   },
-
 };
 </script>

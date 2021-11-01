@@ -14,10 +14,14 @@ function LibraryCollection(){
                 })(this) 
             )
         );
-
-      
         return this;
     }
+
+    arr.addedToBag= function (){
+        return this.filter(function(item){
+            return item.isInBag();
+        })
+    } 
 
     arr.checkedOutItems = function(){
         return this.filter(function(item){
@@ -27,8 +31,6 @@ function LibraryCollection(){
 
     arr.removeItem = function(item){
         this.splice(this.indexOf(item), 1);
-
-        
         return this;
     }
 
