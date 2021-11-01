@@ -26,7 +26,7 @@
 
 <script>
 import LibraryCollection from "@/models/LibraryCollection";
-
+ import axios from "axios";
 
 import {Book, Movie,Album} from "@/models/LibraryItems";
 
@@ -59,10 +59,7 @@ export default {
                     .then((response) => {
                        
                         this.searchResults = new BookCollection(response.data.items);
-                           foreach result
-                            if item.kind === 'movie'
-                                this.library.addItem(new Movie(...))
-                                this.library.addItem(Object.create(new Movie, response.data.items[i])    
+                             
                     })
                     .catch((error) => {
                        
