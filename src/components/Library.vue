@@ -29,7 +29,9 @@ import LibraryCollection from "@/models/LibraryCollection";
 
 import axios from "axios";
 
-import {Book, Movie,Album} from "@/models/LibraryItems";
+// import {Book, Movie,Album} from "@/models/LibraryItems";
+
+import {Movie,Album} from "@/models/LibraryItems";
 
 import LibraryItem from "@/components/LibraryItem";
 
@@ -68,16 +70,15 @@ export default {
             limit: 24,
           }
         }
-         
+      // promise where it uses api url and prams from searchTerm
       axios.get(url, config)
       .then((response=>{
         console.log('ajax responded', response);
 
         if (response.data.results.length){
-        
+          // create new library item from search 
+          // if wrapper type equals track define what is item kind and store in that component type
           response.data.results.forEach((item)=>{
-
-            let LibraryItem = item;
 
             if(item.wrapperType === track){
               switch(item.kind){
@@ -87,7 +88,7 @@ export default {
                   return Object.assign(new Movie, item);
               }
             }
-
+          // add library item from search to library LibraryCollection
             if(LibraryItem){
               this.library.addItem(LibraryItem)
             }
@@ -95,8 +96,7 @@ export default {
 
         }
       }))
-
-      };
+      }
 
     }
   }
